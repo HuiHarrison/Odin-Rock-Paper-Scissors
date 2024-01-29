@@ -12,30 +12,42 @@ function getComputerChoice() {
 
 // Compare Computer and Player Choice
 function playRound(playerSelection, computerSelection) {
+    const title = document.querySelector("#title");
+    const description = document.querySelector("#description");
+    const playerScoreDisplay = document.querySelector(".choices .player .score");
+    const computerScoreDisplay = document.querySelector(".choices .computer .score");
     // Check if it is a tie
     if (playerSelection === computerSelection) {
-        return "It's a Tie!"
+        title.textContent = "It's a Tie!";
+        description.textContent = `${playerSelection} ties with ${computerSelection}`;
     }
     // Check if player won
     else if ((playerSelection === "ROCK" && computerSelection === "SCISSORS") ||
     (playerSelection === "PAPER" && computerSelection === "ROCK") ||
     (playerSelection === "SCISSORS" && computerSelection === "PAPER")) {
         playerScore++;
-        return `You Won! ${playerSelection} beats ${computerSelection}`
+        playerScoreDisplay.textContent = `Player: ${playerScore}`;
+        title.textContent = "You Won!";
+        description.textContent = `${playerSelection} beats ${computerSelection}`;
     }
     // Else return player lost
     else {
         computerScore++;
-        return `You Lose! ${computerSelection} beats ${playerSelection}`
+        computerScoreDisplay.textContent = `Player: ${computerScore}`;
+        title.textContent = "You Lose!";
+        description.textContent = `${computerSelection} beats ${playerSelection}`;
     }
 }
 
 // Main function
 function game(playerSelection){
-    displayPlayerChoice(playerSelection)
-    getComputerChoice();
-    displayComputerChoice(computerSelection);
-    // console.log(playRound(playerSelection, computerSelection));
+    if (playerScore < 5 && computerScore < 5) {
+        displayPlayerChoice(playerSelection);
+        getComputerChoice();
+        displayComputerChoice(computerSelection);
+        playRound(playerSelection, computerSelection);
+    }
+    
     // // Report winner
     // if (playerScore > computerScore) {
     //     console.log("You are the WINNER!");
