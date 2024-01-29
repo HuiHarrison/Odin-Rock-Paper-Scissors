@@ -11,15 +11,15 @@ function getComputerChoice() {
 }
 
 
-// Get Player Choice
-function getPlayerChoice() {
-    playerSelection = prompt("Enter Rock, Paper or Scissors").toUpperCase();
-    // Check invalid input
-    if (!(CHOICELIST.includes(playerSelection))) {
-        console.warn("Invalid Input! Try Again.");
-        return getPlayerChoice()
-    } 
-}
+// // Get Player Choice
+// function getPlayerChoice() {
+//     playerSelection = prompt("Enter Rock, Paper or Scissors").toUpperCase();
+//     // Check invalid input
+//     if (!(CHOICELIST.includes(playerSelection))) {
+//         console.warn("Invalid Input! Try Again.");
+//         return getPlayerChoice()
+//     } 
+// }
 
 
 // Compare Computer and Player Choice
@@ -46,11 +46,9 @@ function playRound(playerSelection, computerSelection) {
 // Main function
 function game(){
     // Loop the game 5 times
-    for (let i=0; i < 5; i++) {
         getComputerChoice();
         getPlayerChoice();
         console.log(playRound(playerSelection, computerSelection));
-    }
     // Report winner
     if (playerScore > computerScore) {
         console.log("You are the WINNER!");
@@ -64,3 +62,36 @@ function game(){
 }
 
 
+function displayPlayerChoice(playerSelection) {
+    const playerChoice = document.querySelector(".choices .player .choice")
+    if (playerSelection === "ROCK"){
+        playerChoice.innerHTML = '<img src="./img/rock.png" alt="rock"/>';
+    }
+    else if (playerSelection === "PAPER") {
+        playerChoice.innerHTML = '<img src="./img/paper.png" alt="paper"/>';
+    }
+    else if (playerSelection === "SCISSORS") {
+        playerChoice.innerHTML = '<img src="./img/scissors.png" alt="scissors"/>';
+    }
+}
+
+function displayComputerChoice(computerSelection) {
+    const computerChoice = document.querySelector(".choices .computer .choice")
+    if (computerSelection === "ROCK"){
+        computerChoice.innerHTML = '<img src="./img/rock.png" alt="rock"/>';
+    }
+    else if (computerSelection === "PAPER") {
+        computerChoice.innerHTML = '<img src="./img/paper.png" alt="paper"/>';
+    }
+    else if (computerSelection === "SCISSORS") {
+        computerChoice.innerHTML = '<img src="./img/scissors.png" alt="scissors"/>';
+    }
+}
+
+const rockBtn = document.querySelector("#rock-btn");
+const paperBtn = document.querySelector("#paper-btn");
+const scissorsBtn = document.querySelector("#scissors-btn");
+
+rockBtn.addEventListener("click", e => displayPlayerChoice("ROCK"));
+paperBtn.addEventListener("click", e => displayPlayerChoice("PAPER"));
+scissorsBtn.addEventListener("click", e => displayPlayerChoice("SCISSORS"));

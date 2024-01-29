@@ -77,6 +77,11 @@ body {
     font-size: 150px;
 }
 
+.choices img {
+    width: 230px;
+    height: auto;
+}
+
 .buttons {
     display: flex;
     justify-content: space-between;
