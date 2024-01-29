@@ -10,18 +10,6 @@ function getComputerChoice() {
     computerSelection = CHOICELIST[(Math.floor(Math.random() * CHOICELIST.length))];
 }
 
-
-// // Get Player Choice
-// function getPlayerChoice() {
-//     playerSelection = prompt("Enter Rock, Paper or Scissors").toUpperCase();
-//     // Check invalid input
-//     if (!(CHOICELIST.includes(playerSelection))) {
-//         console.warn("Invalid Input! Try Again.");
-//         return getPlayerChoice()
-//     } 
-// }
-
-
 // Compare Computer and Player Choice
 function playRound(playerSelection, computerSelection) {
     // Check if it is a tie
@@ -42,25 +30,23 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-
 // Main function
-function game(){
-    // Loop the game 5 times
-        getComputerChoice();
-        getPlayerChoice();
-        console.log(playRound(playerSelection, computerSelection));
-    // Report winner
-    if (playerScore > computerScore) {
-        console.log("You are the WINNER!");
-    }
-    else if (computerScore > playerScore) {
-        console.log("You are the LOSER!");
-    }
-    else {
-        console.log("It is a TIE!");
-    }
+function game(playerSelection){
+    displayPlayerChoice(playerSelection)
+    getComputerChoice();
+    displayComputerChoice(computerSelection);
+    // console.log(playRound(playerSelection, computerSelection));
+    // // Report winner
+    // if (playerScore > computerScore) {
+    //     console.log("You are the WINNER!");
+    // }
+    // else if (computerScore > playerScore) {
+    //     console.log("You are the LOSER!");
+    // }
+    // else {
+    //     console.log("It is a TIE!");
+    // }
 }
-
 
 function displayPlayerChoice(playerSelection) {
     const playerChoice = document.querySelector(".choices .player .choice")
@@ -89,9 +75,10 @@ function displayComputerChoice(computerSelection) {
 }
 
 const rockBtn = document.querySelector("#rock-btn");
-const paperBtn = document.querySelector("#paper-btn");
-const scissorsBtn = document.querySelector("#scissors-btn");
+rockBtn.addEventListener("click", e => game("ROCK"));
 
-rockBtn.addEventListener("click", e => displayPlayerChoice("ROCK"));
-paperBtn.addEventListener("click", e => displayPlayerChoice("PAPER"));
-scissorsBtn.addEventListener("click", e => displayPlayerChoice("SCISSORS"));
+const paperBtn = document.querySelector("#paper-btn");
+paperBtn.addEventListener("click", e => game("PAPER"));
+
+const scissorsBtn = document.querySelector("#scissors-btn");
+scissorsBtn.addEventListener("click", e => game("SCISSORS"));
