@@ -4,10 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
-    <script src="javascripts.js"></script>
+    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <script src="javascripts.js" defer></script>
 </head>
 <body>
-    <h1>The Odin Project: Rock Paper Scissors</h1>
-    <p>Open console to play.</p>
+    <div class="header">
+        <div class="container">
+            <h1>Rock Paper Scissors</h1>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <div class="text">
+                <p id="title">Choose Your Weapon</p>
+                <p>Fist to score 5 points wins the game</p>
+            </div>
+            <div class="choices">
+                <div class="player">
+                    <div class="choice">?</div>
+                    <div class="score">Player: 0</div>
+                </div>
+                <div class="computer">
+                    <div class="choice">?</div>
+                    <div class="score">Computer: 0</div>
+                </div>
+            </div>
+            <div class="buttons">
+                <button type="button" id="rock" class="button"><img src="./img/rock.png" alt="rock"/></button>
+                <button type="button" id="paper" class="button"><img src="./img/paper.png" alt="paper"/></button>
+                <button type="button" id="scissors" class="button"><img src="./img/scissors.png" alt="scissors"/></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <span>Copyright© 2024 HuiHarrison</span>
+            <a href="https://github.com/HuiHarrison"><img src="./img/github-mark-white.png" alt="Github"></a>
+        </div>
+    </div>
 </body>
 </html>
