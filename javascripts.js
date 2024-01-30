@@ -1,9 +1,22 @@
+const modal = document.querySelector("dialog");
+const popUpText = document.querySelector("h2");
+const closeBtn = document.querySelector(".close");
+const againBtn = document.querySelector("#again");
+const title = document.querySelector("#title");
+const description = document.querySelector("#description");
+const playerScoreDisplay = document.querySelector(".choices .player .score");
+const computerScoreDisplay = document.querySelector(".choices .computer .score");
+const playerChoice = document.querySelector(".choices .player .choice")
+const computerChoice = document.querySelector(".choices .computer .choice")
+const rockBtn = document.querySelector("#rock-btn");
+const paperBtn = document.querySelector("#paper-btn");
+const scissorsBtn = document.querySelector("#scissors-btn");
+
 let playerScore = 0;
 let computerScore = 0;
 let computerSelection;
 let playerSelection;
 const CHOICELIST = ["ROCK", "PAPER", "SCISSORS"];
-
 
 // Generate Random Computer Choice
 function getComputerChoice() {
@@ -12,10 +25,6 @@ function getComputerChoice() {
 
 // Compare Computer and Player Choice
 function playRound(playerSelection, computerSelection) {
-    const title = document.querySelector("#title");
-    const description = document.querySelector("#description");
-    const playerScoreDisplay = document.querySelector(".choices .player .score");
-    const computerScoreDisplay = document.querySelector(".choices .computer .score");
     // Check if it is a tie
     if (playerSelection === computerSelection) {
         title.textContent = "It's a Tie!";
@@ -41,27 +50,54 @@ function playRound(playerSelection, computerSelection) {
 
 // Main function
 function game(playerSelection){
-    if (playerScore < 5 && computerScore < 5) {
-        displayPlayerChoice(playerSelection);
-        getComputerChoice();
-        displayComputerChoice(computerSelection);
-        playRound(playerSelection, computerSelection);
+    displayPlayerChoice(playerSelection);
+    getComputerChoice();
+    displayComputerChoice(computerSelection);
+    playRound(playerSelection, computerSelection);
+
+    // Check Game Over
+    if (playerScore > 4 || computerScore > 4) {
+        showPopUp()
     }
-    
-    // // Report winner
-    // if (playerScore > computerScore) {
-    //     console.log("You are the WINNER!");
-    // }
-    // else if (computerScore > playerScore) {
-    //     console.log("You are the LOSER!");
-    // }
-    // else {
-    //     console.log("It is a TIE!");
-    // }
+}
+
+function showPopUp() {
+    // Report winner
+    if (playerScore > computerScore) {
+        popUpText.innerText = "YOU WIN!";
+    }
+    else if (computerScore > playerScore) {
+        popUpText.innerText = "YOU LOSE!";
+    }
+    else {
+        popUpText.innerText = "TIE!";
+    }
+    modal.showModal();
+
+    // Close Button
+    closeBtn.addEventListener("click", e => {
+        // Disable All Button
+        closeGame();
+        modal.close();
+    });
+
+    // Play Again Button
+    againBtn.addEventListener("click", e => {
+        resetGame();
+    })
+}
+
+function resetGame() {
+    playerScore = 0;
+    computerScore = 0;
+    playerScoreDisplay.textContent = `Player: ${playerScore}`;
+    computerScoreDisplay.textContent = `Computer: ${computerScore}`;
+    title.textContent = "Choose Your Weapon";
+    description.textContent = `Fist to score 5 points wins the game`;
+    modal.close();
 }
 
 function displayPlayerChoice(playerSelection) {
-    const playerChoice = document.querySelector(".choices .player .choice")
     if (playerSelection === "ROCK"){
         playerChoice.innerHTML = '<img src="./img/rock.png" alt="rock"/>';
     }
@@ -74,7 +110,6 @@ function displayPlayerChoice(playerSelection) {
 }
 
 function displayComputerChoice(computerSelection) {
-    const computerChoice = document.querySelector(".choices .computer .choice")
     if (computerSelection === "ROCK"){
         computerChoice.innerHTML = '<img src="./img/rock.png" alt="rock"/>';
     }
@@ -86,11 +121,28 @@ function displayComputerChoice(computerSelection) {
     }
 }
 
-const rockBtn = document.querySelector("#rock-btn");
-rockBtn.addEventListener("click", e => game("ROCK"));
+// Start game, player selected rock
+function gameRock() {
+    game("ROCK");
+}
 
-const paperBtn = document.querySelector("#paper-btn");
-paperBtn.addEventListener("click", e => game("PAPER"));
+// Start game, player selected paper
+function gamePaper() {
+    game("PAPER");
+}
 
-const scissorsBtn = document.querySelector("#scissors-btn");
-scissorsBtn.addEventListener("click", e => game("SCISSORS"));
+// Start game, player selected scissors
+function gameScissors() {
+    game("SCISSORS");
+}
+
+rockBtn.addEventListener("click", gameRock);
+paperBtn.addEventListener("click", gamePaper);
+scissorsBtn.addEventListener("click", gameScissors);
+
+// Disable all button, after clicking cross in the pop up
+function closeGame() {
+    rockBtn.removeEventListener("click", gameRock);
+    paperBtn.removeEventListener("click", gamePaper);
+    scissorsBtn.removeEventListener("click", gameScissors);
+}
